@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>上砂川クラフトビアガーデン | KAMISUNAGAWA CRAFT BEER GARDEN</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+            background: white;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #6366f1 0%, #3b82f6 50%, #06b6d4 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="white" opacity="0.1"/><circle cx="80" cy="40" r="3" fill="white" opacity="0.1"/><circle cx="40" cy="60" r="1" fill="white" opacity="0.1"/><circle cx="60" cy="80" r="2" fill="white" opacity="0.1"/></svg>');
+            animation: float 20s infinite linear;
+        }
+
+        .clouds {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 100px;
+            opacity: 0.6;
+            animation: drift linear infinite;
+        }
+
+        .cloud:before {
+            content: '';
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 100px;
+        }
+
+        .cloud:after {
+            content: '';
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 100px;
+        }
+
+        .cloud1 {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: -100px;
+            animation-duration: 25s;
+            animation-delay: 0s;
+        }
+
+        .cloud1:before {
+            width: 50px;
+            height: 50px;
+            top: -25px;
+            left: 10px;
+        }
+
+        .cloud1:after {
+            width: 60px;
+            height: 60px;
+            top: -35px;
+            right: 10px;
+        }
+
+        .cloud2 {
+            width: 60px;
+            height: 60px;
+            top: 60%;
+            left: -80px;
+            animation-duration: 30s;
+            animation-delay: 5s;
+        }
+
+        .cloud2:before {
+            width: 40px;
+            height: 40px;
+            top: -20px;
+            left: 15px;
+        }
+
+        .cloud2:after {
+            width: 45px;
+            height: 45px;
+            top: -25px;
+            right: 15px;
+        }
+
+        .cloud3 {
+            width: 100px;
+            height: 100px;
+            top: 10%;
+            left: -120px;
+            animation-duration: 35s;
+            animation-delay: 10s;
+        }
+
+        .cloud3:before {
+            width: 60px;
+            height: 60px;
+            top: -30px;
+            left: 20px;
+        }
+
+        .cloud3:after {
+            width: 70px;
+            height: 70px;
+            top: -40px;
+            right: 20px;
+        }
+
+        .cloud4 {
+            width: 70px;
+            height: 70px;
+            top: 40%;
+            left: -90px;
+            animation-duration: 28s;
+            animation-delay: 15s;
+        }
+
+        .cloud4:before {
+            width: 45px;
+            height: 45px;
+            top: -22px;
+            left: 12px;
+        }
+
+        .cloud4:after {
+            width: 55px;
+            height: 55px;
+            top: -30px;
+            right: 12px;
+        }
+
+        @keyframes drift {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(calc(100vw + 200px));
+            }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .beer-icons {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            animation: cheers 2s ease-in-out infinite;
+            position: relative;
+            z-index: 3;
+        }
+
+        @keyframes cheers {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-10deg); }
+            75% { transform: rotate(10deg); }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            color: white;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: slideInUp 1s ease-out;
+            position: relative;
+            z-index: 3;
+        }
+
+        .hero .subtitle {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 2rem;
+            animation: slideInUp 1s ease-out 0.2s both;
+            position: relative;
+            z-index: 3;
+        }
+
+        .event-date {
+            background: linear-gradient(45deg, #ef4444, #dc2626);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            animation: slideInUp 1s ease-out 0.4s both;
+            position: relative;
+            z-index: 3;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #fbbf24, #f59e0b);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            animation: slideInUp 1s ease-out 0.6s both;
+            position: relative;
+            z-index: 3;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            position: relative;
+            z-index: 10;
+        }
+
+        .section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(45deg, #06b6d4, #3b82f6);
+            border-radius: 2px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .info-left {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .info-right {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .info-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .info-card h3 {
+            color: #3b82f6;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .vendors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .vendor-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            border: 3px solid;
+        }
+
+        .vendor-card:nth-child(4n+1) {
+            border-color: #fbbf24;
+        }
+
+        .vendor-card:nth-child(4n+2) {
+            border-color: #ef4444;
+        }
+
+        .vendor-card:nth-child(4n+3) {
+            border-color: #06b6d4;
+        }
+
+        .vendor-card:nth-child(4n+4) {
+            border-color: #ec4899;
+        }
+
+        .vendor-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .vendor-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #9ca3af;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vendor-card:nth-child(4n+1) .vendor-image {
+            background: linear-gradient(135deg, #fef3c7, #fbbf24);
+        }
+
+        .vendor-card:nth-child(4n+2) .vendor-image {
+            background: linear-gradient(135deg, #fee2e2, #ef4444);
+        }
+
+        .vendor-card:nth-child(4n+3) .vendor-image {
+            background: linear-gradient(135deg, #cffafe, #06b6d4);
+        }
+
+        .vendor-card:nth-child(4n+4) .vendor-image {
+            background: linear-gradient(135deg, #fce7f3, #ec4899);
+        }
+
+        .vendor-content {
+            padding: 1.5rem;
+        }
+
+        .vendor-card h4 {
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .vendor-card p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .vendor-category {
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .vendor-card:nth-child(4n+1) .vendor-category {
+            background: #fbbf24;
+        }
+
+        .vendor-card:nth-child(4n+2) .vendor-category {
+            background: #ef4444;
+        }
+
+        .vendor-card:nth-child(4n+3) .vendor-category {
+            background: #06b6d4;
+        }
+
+        .vendor-card:nth-child(4n+4) .vendor-category {
+            background: #ec4899;
+        }
+
+        .ticket-info {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #ec4899 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            margin: 0 0 1.5rem 0;
+        }
+
+        .ticket-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .ticket-price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+
+        .ticket-locations {
+            background: white;
+            color: #333;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+        }
+
+        .ticket-locations h4 {
+            margin-bottom: 0.5rem;
+            color: #3b82f6;
+            font-size: 1rem;
+        }
+
+        .ticket-locations ol {
+            text-align: left;
+            padding-left: 1.2rem;
+            font-size: 0.9rem;
+        }
+
+        .contact-info {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+        }
+
+        .contact-info h3 {
+            color: #3b82f6;
+            margin-bottom: 1rem;
+        }
+
+        .access-section {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+        }
+
+        .access-section h3 {
+            color: #3b82f6;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+
+        .map-container {
+            width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-top: 1rem;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 250px;
+            border: 0;
+        }
+
+        .access-info {
+            padding: 0;
+            margin: 0;
+        }
+
+        .access-info h4 {
+            color: #3b82f6;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .access-info p {
+            margin-bottom: 0;
+            line-height: 1.6;
+        }
+
+        .access-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .access-card h4 {
+            color: #3b82f6;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .floating-beer {
+            position: fixed;
+            font-size: 2rem;
+            z-index: 100;
+            pointer-events: none;
+            animation: floatBeer 8s infinite linear;
+        }
+
+        @keyframes floatBeer {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section {
+                padding: 2rem 1rem;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .info-left, .info-right {
+                grid-template-columns: 1fr;
+            }
+
+            .map-container iframe {
+                height: 300px;
+            }
+
+            .access-info {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-beer" style="left: 10%; animation-delay: 0s;">🍺</div>
+    <div class="floating-beer" style="left: 90%; animation-delay: 3s;">🍻</div>
+    <div class="floating-beer" style="left: 50%; animation-delay: 6s;">🍺</div>
+
+    <section class="hero">
+        <div class="clouds">
+            <div class="cloud cloud1"></div>
+            <div class="cloud cloud2"></div>
+            <div class="cloud cloud3"></div>
+            <div class="cloud cloud4"></div>
+        </div>
+        <div class="beer-icons">🍺 🍻 🍺</div>
+        <h1>KAMISUNAGAWA<br>CRAFT BEER GARDEN</h1>
+        <p class="subtitle">上砂川町で開催される特別なクラフトビアガーデン</p>
+        <div class="event-date">8月2日（土）12:00-20:00</div>
+        <a href="#info" class="cta-button">イベント詳細を見る</a>
+    </section>
+
+    <section class="section" id="info">
+        <h2>イベント情報</h2>
+        <div class="info-grid">
+            <div class="info-left">
+                <div class="info-card">
+                    <h3>📅 開催日時</h3>
+                    <p><strong>8月2日（土）12:00 - 20:00</strong></p>
+                    
+                    <h3 style="margin-top: 2rem;">📍 会場</h3>
+                    <p><strong>悲別駅舎</strong><br>
+                    〒073-0201　上砂川町中央北3条1丁目3</p>
+                    
+                    <h3 style="margin-top: 2rem;">🗺️ アクセス</h3>
+                    <p><strong>🚗 お車：</strong>道央自動車道「滝川IC」より約20分<br>
+                    <strong>🚌 公共交通：</strong>JR「砂川駅」よりバス約15分</p>
+                    
+                    <h3 style="margin-top: 2rem;">📞 お問い合わせ</h3>
+                    <p><strong>0125-74-6400</strong><br>
+                    まちの駅ふらっとまで</p>
+                </div>
+            </div>
+            
+            <div class="info-right">
+                <div class="ticket-info">
+                    <h3>🎫 前売りチケット</h3>
+                    <p>ちょっとお得なビール券</p>
+                    <div class="ticket-price">3杯チケット 2,100円→2,000円</div>
+                    
+                    <div class="ticket-locations">
+                        <h4>前売りチケット販売場所</h4>
+                        <ol>
+                            <li>まちの駅ふらっと</li>
+                            <li>なこたこ店舗</li>
+                            <li>きまぐれパン工房（日曜のみ）</li>
+                            <li>つけものや たびのそら店舗</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <div class="access-section">
+                    <h3>🗺️ 詳細アクセス</h3>
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1296.4750733384321!2d141.99030346689918!3d43.48053357266977!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f0ca171fba01051%3A0x82f34825b12fb478!2z5pen5LiK56CC5bed6aeF77yI5oKy5Yil6aeF77yJ!5e1!3m2!1sja!2sjp!4v1752644560791!5m2!1sja!2sjp" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+
+    <section class="section">
+        <h2>🍺 出店者一覧</h2>
+        <div class="vendors-grid">
+            <div class="vendor-card">
+                <div class="vendor-image">🍺</div>
+                <div class="vendor-content">
+                    <div class="vendor-category">クラフトビール</div>
+                    <h4>しもかわ森のブルワリー</h4>
+                    <p>今回のビアガは大手ビールメーカーではなくクラフトビール！この辺では買えないのでぜひ！エールやヴァイツェン、下川町のトドマツを使ったビールなども...瓶ビールの販売もありますよ！</p>
+                </div>
+            </div>
+            <div class="vendor-card">
+                <div class="vendor-image">🐙</div>
+                <div class="vendor-content">
+                    <div class="vendor-category">たこ焼き</div>
+                    <h4>なこたこ</h4>
+                    <p>空知では知らない人はいないであろう、有名キッチンカー【なこたこ】さんの、熱々のトロトロたこ焼きとビールはまだ試していないから、楽しみです！ソースマヨも好きだけど、月替りも♡</p>
+                </div>
+            </div>
+            <div class="vendor-card">
+                <div class="vendor-image">🥔</div>
+                <div class="vendor-content">
+                    <div class="vendor-category">本格コロッケ</div>
+                    <h4>オノリシャス</h4>
+                    <p>レストランで修行をした、シェフがつくる本格コロッケ！見たこともない、聞いたこともない美味しそうなコロッケが目白押しです！絶対、コンプするぜ！しかも、絶対ビールに合うじゃんか！笑</p>
+                </div>
+            </div>
+            <div class="vendor-card">
+                <div class="vendor-image">🥟</div>
+                <div class="vendor-content">
+                    <div class="vendor-category">ラム餃子・丼もの</div>
+                    <h4>うえつぐ食堂</h4>
+                    <p>沼田町で採れた新鮮で美味しい野菜を使った料理を出してくれる【うえつぐ食堂】ビアガーデンでは、ラム餃子やチャーシューエッグ丼、チャーシューエッグバーガーにクラフトコーラなどを予定してます！</p>
+                </div>
+            </div>
+            <div class="vendor-card">
+                <div class="vendor-image">🧇</div>
+                <div class="vendor-content">
+                    <div class="vendor-category">クレープ</div>
+                    <h4>HARAHARA</h4>
+                    <p>こちらも、上砂川町民にはお馴染みのクレープキッチンカー【HARAHARA】！大人だけズルい！なんて言わせません、子どもにもお酒が苦手なあなたにも楽しんで欲しい！勿論、酒とクレープも◎！</p>
+                </div>
+            </div>
+            <div class="vendor-card">
+                <div class="vendor-image">🥒</div>
+                <div class="vendor-content">
+                    <div class="vendor-category">つけもの</div>
+                    <h4>つけものや たびのそら</h4>
+                    <p>しっかり麦の旨味が出ているビールには、旨みたっぷりの漬物もよく合います！この間、いただいた大根のレモン漬けと、三升漬けは無限にビールいけるなと！笑　汗かいたら漬物欲しくなるよね！</p>
+                </div>
+            </div>
+            <div class="vendor-card">
+                <div class="vendor-image">🔨</div>
+                <div class="vendor-content">
+                    <div class="vendor-category">クラフト体験</div>
+                    <h4>木と皮のnanairo</h4>
+                    <p>かみすなビアガーデン限定！本皮を使った栓抜き付きのキーホルダーやカップスリーブなど、お酒の時間がたのしくなるクラフト体験！その他にも、子どもから楽しめる木工体験を開催！</p>
+                </div>
+            </div>
+            <div class="vendor-card">
+                <div class="vendor-image">🧀</div>
+                <div class="vendor-content">
+                    <div class="vendor-category">チーズ・焼菓子</div>
+                    <h4>きまぐれ牧場</h4>
+                    <p>上砂川町が誇るチーズ工房といえば【きまぐれ牧場】！こちらはチーズ関連のおつまみや、焼き菓子を販売します！呑兵衛夫婦が経営する工房ですから、呑兵衛が喜ぶものを期待しましょう！笑</p>
+                </div>
+            </div>
+            <div class="vendor-card">
+                <div class="vendor-image">🥬</div>
+                <div class="vendor-content">
+                    <div class="vendor-category">新鮮野菜</div>
+                    <h4>べじらいふ</h4>
+                    <p>浦臼町の新鮮野菜を届けてくれます！農家さん直売なので鮮度と味は間違いなし！生産者だから知ってる、美味しい調理方法も教えてもらいましょう！トマトを買って、その場で食べるのもいいね！</p>
+                </div>
+            </div>
+            <div class="vendor-card">
+                <div class="vendor-image">🎵</div>
+                <div class="vendor-content">
+                    <div class="vendor-category">ハンドパン演奏</div>
+                    <h4>Daichi Miyamoto</h4>
+                    <p>ハンドパンという楽器で、宇宙にいるような、不思議な、そして癒やされる、そんな音をビアガで奏でてくれるんです！めっちゃ楽しみ！ビールと音楽って最高の組み合わせだよね！</p>
+                </div>
+            </div>
+            <div class="vendor-card">
+                <div class="vendor-image">✨</div>
+                <div class="vendor-content">
+                    <div class="vendor-category">アート書道</div>
+                    <h4>書楽人 心太郎</h4>
+                    <p>北海道を拠点に幅広い活動をする、書家の心太郎さんが上砂川でワークショップを行ってくれます！あなたの目を見て、あなたから行けたインスピレーションを文字にします！</p>
+                </div>
+            </div>
+            <div class="vendor-card">
+                <div class="vendor-image">🍖</div>
+                <div class="vendor-content">
+                    <div class="vendor-category">焼鳥</div>
+                    <h4>焼き鳥/実行委員会</h4>
+                    <p>ビアガーデンといえば焼き鳥、焼き鳥といえばビアガーデン！実行委員会も頑張ります！炭火でガンガン焼きますので買いに来てね！これが売れなきゃ色々、自腹なので応援して下さい！笑</p>
+                </div>
+            </div>
+            <div class="vendor-card">
+                <div class="vendor-image">🍻</div>
+                <div class="vendor-content">
+                    <div class="vendor-category">スナック体験</div>
+                    <h4>スナック風西野</h4>
+                    <p>この夏、車両内にスナックが登場!!１日限りの特別解放イベント♪普段は立ち入れない車内で、グラスを交わす贅沢な時間。限定５枠のプレミアム企画です。</p>
+                </div>
+            </div>
+            <div class="vendor-card">
+                <div class="vendor-image">⭐</div>
+                <div class="vendor-content">
+                    <div class="vendor-category">天体観測</div>
+                    <h4>星空案内人</h4>
+                    <p>18時ごろから、天体観測を行います！星空案内人が、薄暗くなってからの星空の様子をご案内します！ビールを飲みながら天体観測だなんてオツなもんですなぁ。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>🎉 イベントの魅力</h2>
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>🍺 こだわりのクラフトビール</h3>
+                <p>エールやヴァイツェン、下川町のトドマツを使ったビールなど「しもかわ森のブルワリー」のクラフトビールをお楽しみいただけます。</p>
+            </div>
+            <div class="info-card">
+                <h3>🍴 多彩なグルメ</h3>
+                <p>たこ焼き、コロッケ、ラム餃子、クレープなど、様々なジャンルの美味しい料理が一堂に会します。</p>
+            </div>
+            <div class="info-card">
+                <h3>🎵 エンターテイメント</h3>
+                <p>ハンドパン演奏、アート書道、天体観測など、食べて飲むだけでない特別な体験をお楽しみください。</p>
+            </div>
+            <div class="info-card">
+                <h3>🚉 歴史ある会場</h3>
+                <p>悲別駅舎という趣のある会場で、特別な時間をお過ごしいただけます。</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="footer">
+        <p>&copy; 2025 Kamisunagawa Craft Beer Garden. All rights reserved.</p>
+        <p>🍺 友達や家族と一緒に、素敵な夏の思い出を作りましょう！ 🍻</p>
+    </div>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add random floating beer animations
+        function createFloatingBeer() {
+            const beer = document.createElement('div');
+            beer.className = 'floating-beer';
+            beer.innerHTML = Math.random() > 0.5 ? '🍺' : '🍻';
+            beer.style.left = Math.random() * 100 + '%';
+            beer.style.animationDelay = Math.random() * 8 + 's';
+            document.body.appendChild(beer);
+            
+            setTimeout(() => {
+                beer.remove();
+            }, 8000);
+        }
+
+        // Create floating beers periodically
+        setInterval(createFloatingBeer, 3000);
+
+        // Add subtle parallax effect to hero section without overlap issues
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            const heroHeight = hero.offsetHeight;
+            
+            // Only apply parallax when hero is visible
+            if (scrolled < heroHeight) {
+                hero.style.transform = `translateY(${scrolled * 0.2}px)`;
+            } else {
+                hero.style.transform = `translateY(${heroHeight * 0.2}px)`;
+            }
+        });
+    </script>
+</body>
+</html>
